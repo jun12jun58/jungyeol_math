@@ -2,21 +2,25 @@ import random
 
 data_count = 10
 
+# 무작위 데이터 생성
 basic_list = []
 for i in range(data_count):
     basic_list.append(random.randint(0, 1000))
 print(f"무작위 데이터: {basic_list}")
 
+# 정렬된 데이터 생성
 sorted_list = [random.randint(0, 1000 // data_count)]
 for i in range(data_count - 1):
     sorted_list.append(sorted_list[-1] + random.randint(0, 1000 // data_count))
 print(f"정렬된 데이터: {sorted_list}")
 
+# 거의 정렬된 데이터 생성
 almost_sorted_list = [random.randint(0, 1000 // data_count)]
 for i in range(data_count - 1):
     almost_sorted_list.append(almost_sorted_list[-1] + random.randint(-600 // data_count, 1000 // data_count))
 print(f"거의 정렬된 데이터: {almost_sorted_list}")
 
+# 역순 데이터 생성
 reversed_list = sorted_list[::-1]
 print(f"역순 데이터: {reversed_list}\n")
 
@@ -85,14 +89,13 @@ def quick_sort(arr):
     result = quick(arr)
     return result, compare
 
-lists = [
+# 출력
+for name, data in [
     ("무작위", basic_list),
     ("정렬된", sorted_list),
     ("거의 정렬된", almost_sorted_list),
     ("역순", reversed_list)
-]
-
-for name, data in lists:
+]:
     print(f"\n===== {name} 데이터 =====")
     _, compare, swap = bubble_sort(data.copy())
     print(f"Bubble sort   : 비교 {compare:4d}회, 교환 {swap:4d}회")

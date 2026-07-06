@@ -1,6 +1,7 @@
 import random
 
-data_count = 10
+# 데이터 개수 쓰기
+data_count = 100
 
 # 무작위 데이터 생성
 basic_list = []

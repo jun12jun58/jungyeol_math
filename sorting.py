@@ -72,23 +72,29 @@ def insertion_sort(arr):
 
 def quick_sort(arr):
     compare = 0
-    def quick(a):
-        nonlocal compare
-        if len(a) <= 1:
-            return a
-        pivot = a[len(a) // 2]
-        left, middle, right = [], [], []
-        for x in a:
+    swap = 0
+    def partition(low, high):
+        nonlocal compare, swap
+        pivot = arr[high]
+        i = low - 1
+        for j in range(low, high):
             compare += 1
-            if x < pivot:
-                left.append(x)
-            elif x == pivot:
-                middle.append(x)
-            else:
-                right.append(x)
-        return quick(left) + middle + quick(right)
-    result = quick(arr)
-    return result, compare
+            if arr[j] <= pivot:
+                i += 1
+                if i != j:
+                    arr[i], arr[j] = arr[j], arr[i]
+                    swap += 1
+        if i + 1 != high:
+            arr[i + 1], arr[high] = arr[high], arr[i + 1]
+            swap += 1
+        return i + 1
+    def quick(low, high):
+        if low < high:
+            pi = partition(low, high)
+            quick(low, pi - 1)
+            quick(pi + 1, high)
+    quick(0, len(arr) - 1)
+    return arr, compare, swap
 
 # 출력
 for name, data in [
@@ -104,5 +110,5 @@ for name, data in [
     print(f"Selection sort: 비교 {compare:4d}회, 교환 {swap:4d}회")
     _, compare, move = insertion_sort(data.copy())
     print(f"Insertion sort: 비교 {compare:4d}회, 이동 {move:4d}회")
-    _, compare = quick_sort(data.copy())
-    print(f"Quick sort    : 비교 {compare:4d}회")
+    _, compare, swap = quick_sort(data.copy())
+    print(f"Quicksort     : 비교 {compare:4d}회, 교환 {swap:4d}회")

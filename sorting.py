@@ -75,6 +75,17 @@ def quick_sort(arr):
     swap = 0
     def partition(low, high):
         nonlocal compare, swap
+        mid = (low + high) // 2
+        candidates = [
+            (arr[low], low),
+            (arr[mid], mid),
+            (arr[high], high)
+        ]
+        candidates.sort()
+        pivot_index = candidates[1][1]
+        if pivot_index != high:
+            arr[pivot_index], arr[high] = arr[high], arr[pivot_index]
+            swap += 1
         pivot = arr[high]
         i = low - 1
         for j in range(low, high):
